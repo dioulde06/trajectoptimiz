@@ -25,7 +25,7 @@ jobs:
         with:
           node-version: 20
 
-      - run: pnpm install --frozen-lockfile
+      - run: pnpm install
 
       - run: pnpm -r typecheck
 
@@ -43,7 +43,7 @@ jobs:
         with:
           node-version: 20
 
-      - run: pnpm install --frozen-lockfile
+      - run: pnpm install
 
       - run: pnpm -r test
 
@@ -61,7 +61,7 @@ jobs:
         with:
           node-version: 20
 
-      - run: pnpm install --frozen-lockfile
+      - run: pnpm install
 
       - name: Install Playwright browsers
         run: pnpm --filter @trajectoptimiz/web exec playwright install --with-deps chromium
@@ -96,7 +96,7 @@ jobs:
         with:
           node-version: 20
 
-      - run: pnpm install --frozen-lockfile
+      - run: pnpm install
 
       - name: Build web app
         run: pnpm --filter @trajectoptimiz/web build
