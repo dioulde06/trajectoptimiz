@@ -9,5 +9,3 @@ allowBuilds:
   esbuild: true
   prisma: true
   sharp: true
-minimumReleaseAgeExclude:
-  - '@anthropic-ai/sdk@0.101.0'
