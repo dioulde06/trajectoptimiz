@@ -1,0 +1,23 @@
+{
+  "name": "trajectoptimiz",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm -r --parallel run dev",
+    "build": "pnpm -r run build",
+    "test": "pnpm -r run test",
+    "test:e2e": "pnpm --filter @trajectoptimiz/web run test:e2e",
+    "lint": "pnpm -r run lint",
+    "typecheck": "pnpm -r run typecheck",
+    "db:generate": "pnpm --filter @trajectoptimiz/db run generate",
+    "db:migrate": "pnpm --filter @trajectoptimiz/db run migrate",
+    "db:seed": "pnpm --filter @trajectoptimiz/db run seed"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.4"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  }
+}

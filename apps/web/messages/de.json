@@ -1,0 +1,48 @@
+{
+  "metadata": {
+    "title": "trajectoptimiz — Streckenoptimierung Saarbrücken",
+    "description": "App zur Streckenoptimierung im öffentlichen Nahverkehr der Region Saarbrücken. Erste Strecke: Dudweiler → Neunkirchen."
+  },
+  "header": {
+    "subtitle": "Streckenoptimierung · Saarland"
+  },
+  "footer": {
+    "text": "trajectoptimiz · S-Bahn Saar Daten · Region Saarbrücken"
+  },
+  "home": {
+    "headline": "Optimieren Sie Ihre Strecken im Saarland",
+    "description": "Verfolgen Sie die Pünktlichkeit der S-Bahn-Linien zwischen Dudweiler und Neunkirchen. Speichern Sie Ihre Strecken und erhalten Sie Verspätungsvorhersagen auf Basis echter Verlaufsdaten.",
+    "bannerRoute": "Hauptstrecke: Dudweiler → Neunkirchen",
+    "bannerDetails": "Linie S1 · 10 Haltestellen · ~30 Minuten · 30-Minuten-Takt"
+  },
+  "routeList": {
+    "addTitle": "Strecke hinzufügen",
+    "nameLabel": "Streckenname",
+    "namePlaceholder": "z.B. Heimweg Arbeit",
+    "fromLabel": "Starthaltestelle",
+    "toLabel": "Zielhaltestelle",
+    "submit": "Strecke speichern",
+    "submitting": "Wird gespeichert…",
+    "invalidData": "Ungültige Daten",
+    "savedTitle": "Meine gespeicherten Strecken",
+    "loading": "Strecken werden geladen…",
+    "empty": "Keine Strecken gespeichert.",
+    "emptyHint": "Fügen Sie oben Ihre erste Strecke hinzu.",
+    "trips": "{count, plural, one {# Fahrt gespeichert} other {# Fahrten gespeichert}}",
+    "delete": "Löschen",
+    "deleteLabel": "Strecke {name} löschen"
+  },
+  "analysis": {
+    "trigger": "Verspätungen mit KI analysieren",
+    "loading": "Analyse läuft…",
+    "error": "Analysefehler",
+    "delayProbability": "{prob}% Verspätungswahrscheinlichkeit",
+    "onTime": "pünktlich",
+    "delayPositive": "+{min} min",
+    "delayNegative": "{min} min",
+    "factors": "Faktoren: {list}",
+    "confidenceLow": "geringe Konfidenz",
+    "confidenceMedium": "mittlere Konfidenz",
+    "confidenceHigh": "hohe Konfidenz"
+  }
+}

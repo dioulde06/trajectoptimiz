@@ -1,0 +1,48 @@
+{
+  "metadata": {
+    "title": "trajectoptimiz — Route Optimization Saarbrücken",
+    "description": "Public transport route optimization app for the Saarbrücken region. First route: Dudweiler → Neunkirchen."
+  },
+  "header": {
+    "subtitle": "Route Optimization · Saarland"
+  },
+  "footer": {
+    "text": "trajectoptimiz · S-Bahn Saar Data · Saarbrücken Region"
+  },
+  "home": {
+    "headline": "Optimize your routes in Saarland",
+    "description": "Track S-Bahn punctuality between Dudweiler and Neunkirchen. Save your routes and receive delay predictions based on real historical data.",
+    "bannerRoute": "Main route: Dudweiler → Neunkirchen",
+    "bannerDetails": "Line S1 · 10 stops · ~30 minutes · 30 min frequency"
+  },
+  "routeList": {
+    "addTitle": "Add a route",
+    "nameLabel": "Route name",
+    "namePlaceholder": "e.g. Morning commute",
+    "fromLabel": "Departure stop",
+    "toLabel": "Arrival stop",
+    "submit": "Save route",
+    "submitting": "Saving…",
+    "invalidData": "Invalid data",
+    "savedTitle": "My saved routes",
+    "loading": "Loading routes…",
+    "empty": "No routes saved.",
+    "emptyHint": "Add your first route above.",
+    "trips": "{count, plural, one {# trip recorded} other {# trips recorded}}",
+    "delete": "Delete",
+    "deleteLabel": "Delete route {name}"
+  },
+  "analysis": {
+    "trigger": "Analyze delays with AI",
+    "loading": "Analysis in progress…",
+    "error": "Analysis error",
+    "delayProbability": "{prob}% delay probability",
+    "onTime": "on time",
+    "delayPositive": "+{min} min",
+    "delayNegative": "{min} min",
+    "factors": "Factors: {list}",
+    "confidenceLow": "low confidence",
+    "confidenceMedium": "medium confidence",
+    "confidenceHigh": "high confidence"
+  }
+}

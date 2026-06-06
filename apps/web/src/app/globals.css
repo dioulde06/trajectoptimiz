@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-saar-blue: #003B6F;
+    --color-saar-red: #CC0000;
+    --color-saar-gold: #F0A500;
+  }
+
+  body {
+    @apply bg-gray-50 text-gray-900 antialiased;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-saar-blue text-white px-4 py-2 rounded-lg font-medium
+           hover:bg-blue-900 transition-colors duration-200
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-danger {
+    @apply bg-saar-red text-white px-3 py-1.5 rounded-md text-sm font-medium
+           hover:bg-red-700 transition-colors duration-200;
+  }
+
+  .card {
+    @apply bg-white rounded-xl shadow-sm border border-gray-200 p-6;
+  }
+
+  .input {
+    @apply w-full rounded-lg border border-gray-300 px-3 py-2 text-sm
+           focus:outline-none focus:ring-2 focus:ring-saar-blue focus:border-transparent
+           placeholder:text-gray-400;
+  }
+
+  .badge-delay {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+}

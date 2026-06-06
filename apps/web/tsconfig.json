@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    /* Next.js 15 requiert "bundler" pour les imports ESM */
+    "moduleResolution": "bundler",
+    "module": "ESNext",
+    "jsx": "preserve",
+    /* Next.js gère lui-même l'émission, on ne produit pas de fichiers .js */
+    "noEmit": true,
+    /* Permet les imports depuis le répertoire src/ sans chemin relatif */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    },
+    /* Nécessaire pour les Server Components Next.js */
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    /* Plugins Next.js pour la vérification des types */
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "allowJs": true,
+    "incremental": true,
+    "isolatedModules": true
+  },
+  "include": [
+    "next.config.ts",
+    "playwright.config.ts",
+    "src",
+    "vitest.config.ts",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    ".next",
+    "dist"
+  ]
+}

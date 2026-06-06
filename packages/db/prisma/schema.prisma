@@ -1,0 +1,65 @@
+// Générateur du client Prisma TypeScript
+generator client {
+  provider = "prisma-client-js"
+  // Le client est généré dans node_modules/@prisma/client (défaut)
+}
+
+// Connexion PostgreSQL — URL fournie via la variable d'environnement
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Utilisateur de l'application
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+
+  // Un utilisateur peut avoir plusieurs trajets sauvegardés
+  routes Route[]
+
+  @@map("users")
+}
+
+// Trajet sauvegardé par un utilisateur
+model Route {
+  id        String   @id @default(cuid())
+  name      String
+  fromStop  String
+  toStop    String
+  createdAt DateTime @default(now())
+
+  // Relation vers l'utilisateur propriétaire
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Historique des voyages effectués sur ce trajet
+  tripHistories TripHistory[]
+
+  @@index([userId])
+  @@map("routes")
+}
+
+// Enregistrement d'un voyage réel sur un trajet
+model TripHistory {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  // Heure planifiée selon l'horaire officiel
+  scheduledAt DateTime
+
+  // Heure réelle de passage (null si voyage non encore effectué)
+  actualAt DateTime?
+
+  // Retard en minutes (négatif = avance, null si inconnu)
+  delayMinutes Int?
+
+  // Relation vers le trajet parent
+  routeId String
+  route   Route  @relation(fields: [routeId], references: [id], onDelete: Cascade)
+
+  @@index([routeId])
+  @@index([scheduledAt])
+  @@map("trip_histories")
+}

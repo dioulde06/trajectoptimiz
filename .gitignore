@@ -1,0 +1,39 @@
+# Dépendances
+node_modules/
+.pnpm-store/
+
+# Build outputs
+.next/
+dist/
+build/
+out/
+
+# Prisma (les migrations sont committées, pas le client généré)
+packages/db/generated/
+
+# Variables d'environnement (ne jamais commiter)
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Tests
+coverage/
+playwright-report/
+test-results/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Vercel
+.vercel/

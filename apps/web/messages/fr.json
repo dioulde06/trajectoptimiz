@@ -1,0 +1,48 @@
+{
+  "metadata": {
+    "title": "trajectoptimiz — Optimisation de trajets Saarbrücken",
+    "description": "Application d'optimisation de trajet en transport en commun dans la région de Saarbrücken. Premier trajet : Dudweiler → Neunkirchen."
+  },
+  "header": {
+    "subtitle": "Optimisation de trajets · Saarland"
+  },
+  "footer": {
+    "text": "trajectoptimiz · Données S-Bahn Saar · Région de Saarbrücken"
+  },
+  "home": {
+    "headline": "Optimisez vos trajets en Saarland",
+    "description": "Suivez la ponctualité des lignes S-Bahn entre Dudweiler et Neunkirchen. Sauvegardez vos trajets et recevez des prédictions de retard basées sur l'historique réel.",
+    "bannerRoute": "Trajet principal : Dudweiler → Neunkirchen",
+    "bannerDetails": "Ligne S1 · 10 arrêts · ~30 minutes · fréquence 30 min"
+  },
+  "routeList": {
+    "addTitle": "Ajouter un trajet",
+    "nameLabel": "Nom du trajet",
+    "namePlaceholder": "Ex : Trajet domicile-travail",
+    "fromLabel": "Arrêt de départ",
+    "toLabel": "Arrêt d'arrivée",
+    "submit": "Enregistrer le trajet",
+    "submitting": "Enregistrement…",
+    "invalidData": "Données invalides",
+    "savedTitle": "Mes trajets sauvegardés",
+    "loading": "Chargement des trajets…",
+    "empty": "Aucun trajet enregistré.",
+    "emptyHint": "Ajoutez votre premier trajet ci-dessus.",
+    "trips": "{count, plural, one {# voyage enregistré} other {# voyages enregistrés}}",
+    "delete": "Supprimer",
+    "deleteLabel": "Supprimer le trajet {name}"
+  },
+  "analysis": {
+    "trigger": "Analyser les retards avec IA",
+    "loading": "Analyse en cours…",
+    "error": "Erreur d'analyse",
+    "delayProbability": "{prob}% de retard probable",
+    "onTime": "à l'heure",
+    "delayPositive": "+{min} min",
+    "delayNegative": "{min} min",
+    "factors": "Facteurs : {list}",
+    "confidenceLow": "confiance faible",
+    "confidenceMedium": "confiance moyenne",
+    "confidenceHigh": "confiance élevée"
+  }
+}
