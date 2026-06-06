@@ -25,7 +25,17 @@ jobs:
         with:
           node-version: 20
 
-      - run: pnpm install
+      - name: Debug pnpm config
+        run: |
+          pnpm --version
+          echo "--- pnpm-workspace.yaml ---"
+          cat pnpm-workspace.yaml
+          echo "--- pnpm.json ---"
+          cat pnpm.json || echo "(absent)"
+          echo "--- .npmrc ---"
+          cat .npmrc || echo "(absent)"
+
+      - run: pnpm install 2>&1
 
       - run: pnpm -r typecheck
 
