@@ -1,5 +1,7 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, vi, beforeEach, beforeAll } from "vitest";
 import type { RouteHistory } from "@trajectoptimiz/validators";
+import type { analyzeDelay as AnalyzeDelayFn } from "../analyze-delay";
+import type { anthropic as AnthropicClient } from "../client";
 
 /* Mock du client Anthropic avant l'import de la fonction testée */
 vi.mock("../client", () => ({
@@ -10,9 +12,16 @@ vi.mock("../client", () => ({
   },
 }));
 
-/* Import après le mock — vitest hisse les vi.mock en haut automatiquement */
-const { analyzeDelay } = await import("../analyze-delay");
-const { anthropic } = await import("../client");
+/* vi.mock est hissé automatiquement — imports dynamiques dans beforeAll */
+let analyzeDelay: typeof AnalyzeDelayFn;
+let anthropic: typeof AnthropicClient;
+
+beforeAll(async () => {
+  const analyzeDelayModule = await import("../analyze-delay");
+  const clientModule = await import("../client");
+  analyzeDelay = analyzeDelayModule.analyzeDelay;
+  anthropic = clientModule.anthropic;
+});
 
 const HISTORIQUE_VIDE: RouteHistory = {
   routeId: "cjld2cjxh0000qzrmn831i7rn",

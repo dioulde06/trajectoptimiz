@@ -1,11 +1,19 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { TRPCError } from "@trpc/server";
 import type { PrismaClient } from "@prisma/client";
 import { appRouter, createCallerFactory } from "../index";
 
 /* CUIDs de test — format valide : c[a-z0-9]{24} */
 const USER_ID = "cjld2cjxh0000qzrmn831i7rn";
 const ROUTE_ID = "ckh3abcd1234efgh5678ijklm";
+
+const MOCK_ROUTE = {
+  id: ROUTE_ID,
+  name: "Trajet domicile-travail",
+  fromStop: "Dudweiler Markt",
+  toStop: "Saarbrücken Hauptbahnhof",
+  userId: USER_ID,
+  createdAt: new Date("2024-09-01"),
+};
 
 /* Mock minimal du PrismaClient — as unknown évite any tout en typant correctement */
 function buildMockPrisma() {
@@ -35,12 +43,7 @@ describe("routes.getAll", () => {
   it("retourne la liste des trajets d'un utilisateur", async () => {
     const trajets = [
       {
-        id: ROUTE_ID,
-        name: "Trajet matin",
-        fromStop: "Dudweiler Markt",
-        toStop: "Saarbrücken Hauptbahnhof",
-        userId: USER_ID,
-        createdAt: new Date("2024-09-01"),
+        ...MOCK_ROUTE,
         _count: { tripHistories: 5 },
       },
     ];
@@ -82,45 +85,31 @@ describe("routes.create", () => {
     userId: USER_ID,
   };
 
-  it("crée un trajet quand l'utilisateur existe et aucun doublon", async () => {
-    const nouveauTrajet = {
-      id: ROUTE_ID,
-      ...INPUT_VALIDE,
-      createdAt: new Date("2024-09-01"),
-    };
-
-    vi.mocked(mockPrisma.user.findUnique).mockResolvedValueOnce({ id: USER_ID });
+  it("crée un trajet (connectOrCreate gère l'upsert utilisateur)", async () => {
     vi.mocked(mockPrisma.route.findFirst).mockResolvedValueOnce(null);
-    vi.mocked(mockPrisma.route.create).mockResolvedValueOnce(nouveauTrajet);
+    vi.mocked(mockPrisma.route.create).mockResolvedValueOnce(MOCK_ROUTE);
 
     const caller = createCaller({ prisma: mockPrisma, userId: null });
     const result = await caller.routes.create(INPUT_VALIDE);
 
-    expect(result).toEqual(nouveauTrajet);
+    expect(result).toEqual(MOCK_ROUTE);
     expect(vi.mocked(mockPrisma.route.create)).toHaveBeenCalledWith({
       data: {
         name: INPUT_VALIDE.name,
         fromStop: INPUT_VALIDE.fromStop,
         toStop: INPUT_VALIDE.toStop,
-        userId: INPUT_VALIDE.userId,
+        user: {
+          connectOrCreate: {
+            where: { id: INPUT_VALIDE.userId },
+            create: { id: INPUT_VALIDE.userId, email: "demo@trajectoptimiz.local" },
+          },
+        },
       },
     });
   });
 
-  it("lève NOT_FOUND si l'utilisateur n'existe pas", async () => {
-    vi.mocked(mockPrisma.user.findUnique).mockResolvedValueOnce(null);
-
-    const caller = createCaller({ prisma: mockPrisma, userId: null });
-
-    await expect(caller.routes.create(INPUT_VALIDE)).rejects.toThrow(TRPCError);
-    await expect(caller.routes.create(INPUT_VALIDE)).rejects.toMatchObject({
-      code: "NOT_FOUND",
-    });
-  });
-
   it("lève CONFLICT si un trajet identique existe déjà", async () => {
-    vi.mocked(mockPrisma.user.findUnique).mockResolvedValue({ id: USER_ID });
-    vi.mocked(mockPrisma.route.findFirst).mockResolvedValue({ id: ROUTE_ID });
+    vi.mocked(mockPrisma.route.findFirst).mockResolvedValue(MOCK_ROUTE);
 
     const caller = createCaller({ prisma: mockPrisma, userId: null });
 
@@ -136,7 +125,6 @@ describe("routes.create", () => {
       caller.routes.create({ ...INPUT_VALIDE, userId: "pas-un-cuid" })
     ).rejects.toThrow();
 
-    // Prisma ne doit jamais être appelé si la validation échoue
     expect(vi.mocked(mockPrisma.user.findUnique)).not.toHaveBeenCalled();
   });
 });
@@ -149,18 +137,8 @@ describe("routes.delete", () => {
   });
 
   it("supprime un trajet existant et retourne son id", async () => {
-    vi.mocked(mockPrisma.route.findUnique).mockResolvedValueOnce({
-      id: ROUTE_ID,
-      name: "Trajet matin",
-    });
-    vi.mocked(mockPrisma.route.delete).mockResolvedValueOnce({
-      id: ROUTE_ID,
-      name: "Trajet matin",
-      fromStop: "Dudweiler Markt",
-      toStop: "Saarbrücken Hauptbahnhof",
-      userId: USER_ID,
-      createdAt: new Date(),
-    });
+    vi.mocked(mockPrisma.route.findUnique).mockResolvedValueOnce(MOCK_ROUTE);
+    vi.mocked(mockPrisma.route.delete).mockResolvedValueOnce(MOCK_ROUTE);
 
     const caller = createCaller({ prisma: mockPrisma, userId: null });
     const result = await caller.routes.delete({ id: ROUTE_ID });
