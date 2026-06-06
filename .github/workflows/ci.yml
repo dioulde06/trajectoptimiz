@@ -25,17 +25,10 @@ jobs:
         with:
           node-version: 22
 
-      - name: Debug pnpm config
-        run: |
-          pnpm --version
-          echo "--- pnpm-workspace.yaml ---"
-          cat pnpm-workspace.yaml
-          echo "--- pnpm.json ---"
-          cat pnpm.json || echo "(absent)"
-          echo "--- .npmrc ---"
-          cat .npmrc || echo "(absent)"
+      - run: pnpm install
 
-      - run: pnpm install 2>&1
+      - name: Generate Prisma client
+        run: pnpm db:generate
 
       - run: pnpm -r typecheck
 
@@ -55,6 +48,9 @@ jobs:
 
       - run: pnpm install
 
+      - name: Generate Prisma client
+        run: pnpm db:generate
+
       - run: pnpm -r test
 
   test-e2e:
@@ -72,6 +68,9 @@ jobs:
           node-version: 22
 
       - run: pnpm install
+
+      - name: Generate Prisma client
+        run: pnpm db:generate
 
       - name: Install Playwright browsers
         run: pnpm --filter @trajectoptimiz/web exec playwright install --with-deps chromium
@@ -107,6 +106,9 @@ jobs:
           node-version: 22
 
       - run: pnpm install
+
+      - name: Generate Prisma client
+        run: pnpm db:generate
 
       - name: Build web app
         run: pnpm --filter @trajectoptimiz/web build
