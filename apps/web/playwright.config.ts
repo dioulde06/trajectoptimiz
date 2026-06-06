@@ -17,6 +17,8 @@ export default defineConfig({
 
   use: {
     baseURL: "http://localhost:3000",
+    /* Force French Accept-Language so next-intl serves the default (fr) locale */
+    locale: "fr-FR",
     /* Capture la trace sur le premier échec pour le débogage */
     trace: "on-first-retry",
     screenshot: "only-on-failure",
