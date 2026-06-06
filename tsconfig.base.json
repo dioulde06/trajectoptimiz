@@ -16,7 +16,8 @@
     "noUnusedParameters": true,
 
     /* --- Résolution des modules --- */
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
+    "ignoreDeprecations": "5.0",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
